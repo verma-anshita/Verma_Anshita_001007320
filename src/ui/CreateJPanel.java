@@ -25,27 +25,6 @@ public class CreateJPanel extends javax.swing.JPanel {
         initComponents();
         this.profile=profile;
     }
-//    String error=null;
-//    public void validate(){
-//    
-//    if(isValidName(profile.getName()))
-//        error="Enter Valid Name";
-//           
-//    }
-//    
-//    private boolean isValidName(String name){
-//        
-//        return name.matches("[A-Z][A-Za-z]+( [A-Z][A-Za-z]+)?");
-//    }
-//    private boolean isValidGeoData(String geoData){
-//        
-//        return geoData.matches("");
-//    }
-//    
-//    private boolean isValidPhone(String name){
-//        
-//        return name.matches("[A-Z][A-Za-z]+( [A-Z][A-Za-z]+)?");
-//    }
     
     
    
@@ -310,7 +289,72 @@ public class CreateJPanel extends javax.swing.JPanel {
                 .addComponent(btnSave))
         );
     }// </editor-fold>//GEN-END:initComponents
+//Methods for validations of profile attributes
 
+private boolean isValidName(String name){
+    return (name==null)||!(name.matches("[A-Za-z]+( [A-Za-z]+)?"));
+}
+
+private boolean isValidGeoData(String geo){
+    return (geo==null)||(geo.equals(""));
+}
+
+private boolean isValidDob(String dob){
+    return (dob==null)||!(dob.matches("([0][1-9]|1[0-2])/([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])/([1][789]|[2][0])[0-9]{2}"));
+}
+
+private boolean isValidTelephone(Long telephone){
+    return (telephone==null)||!(telephone.toString().matches("\\d{10}"));
+}
+
+private boolean isValidFax(String fax){
+    return (fax==null)||!(fax.matches("\\+[0-9]{1,3}-[0-9]{3}\\-[0-9]{7}"));
+}
+
+private boolean isValidEmail(String email){
+    return (email==null)||!(email.matches("([A-Za-z0-9._%-])+@([A-Za-z0-9.-])+\\.[A-Za-z]{2,64}"));
+}
+
+private boolean isValidSsn(String ssn){
+    return (ssn==null)||!(ssn.matches("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
+}
+
+private boolean isValidMedical(String medical){
+    return (medical==null)||medical.equals("")||!(medical.matches("[A-Za-z0-9]+"));
+}
+
+private boolean isValidHealth(String health){
+    return (health==null)||health.equals("")||!(health.matches("[A-Za-z0-9]+"));
+}
+
+private boolean isValidBankAccount(Long bank){
+    return (bank==null)||!(bank.toString().matches("\\d{6,17}"));
+}
+
+private boolean isValidLicense(String license){
+    return (license==null)||license.equals("")||!(license.matches("[A-Za-z0-9]+"));
+}
+
+private boolean isValidLicensePlate(String licensePlate){
+    return (licensePlate==null)||licensePlate.equals("")||!(licensePlate.matches("[A-Za-z0-9]+"));
+}
+
+private boolean isValidDevice(String device){
+    return (device==null)||device.equals("")||!(device.matches("[A-Za-z0-9]+"));
+}
+
+
+private boolean isValidlinkedIn(String linkedIn){
+    return (linkedIn==null)||!(linkedIn.matches("https://www.linkedin.com/in/"+"[a-z0-9-]+/?"));
+}
+
+private boolean isValidipAddress(String ipAddress){
+    return (ipAddress==null)||!(ipAddress.matches("(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])"));
+}
+
+private boolean isValidCode(String code){
+    return (code==null)||(code.equals(""));
+}
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
        profile.setName(txtName.getText());
        profile.setGeoData(txtGeo.getText());
@@ -319,34 +363,17 @@ public class CreateJPanel extends javax.swing.JPanel {
        long phone = Long.parseLong(txtTelephone.getText());
        profile.setPhone(phone);
        }
-       //long phone= strinToLong();
-//       public long stringToLong(String x){
-//          // x=txtTelephone.getText();
-//          if(x.isBlank()||x.isEmpty()||x==null){
-//          return 0L;
-//          }
-//          else{
-//              long phone = Long.parseLong(x);
-//              return phone;
-//          }     
-//       }
-//       profile.setPhone(stringToLong(txtTelephone.getText()));
-       
-       
-       
        profile.setFax(txtFax.getText());
        profile.setEmail(txtEmail.getText());
        profile.setSsn(txtSSN.getText());
-       //medical
+     
        profile.setMedicalRecord(txtMedical.getText());
        profile.setHealthPlan(txtHealthPlan.getText());
        if(!(txtBankAccountNumber.getText()==null||txtBankAccountNumber.getText()==""||txtBankAccountNumber.getText().isBlank()||txtTelephone.getText().isEmpty())){
        long bankAccount = Long.parseLong(txtBankAccountNumber.getText());
        profile.setBankAccount(bankAccount);
        }
-       //bank account
-       //long bankAccount = Long.parseLong(txtBankAccountNumber.getText());
-       //profile.setBankAccount(bankAccount);
+       
        profile.setLicense(txtCertificate.getText());
        profile.setLicensePlate(txtVehicle.getText());
        profile.setDeviceIdentifier(txtDevice.getText());
@@ -355,61 +382,55 @@ public class CreateJPanel extends javax.swing.JPanel {
        profile.setImagePath(txtupload.getText());
        profile.setCode(txtCode.getText());
        
+
+
+//checking validations for each field
+      if(isValidName(profile.getName()))
+       JOptionPane.showMessageDialog(this, "Enter Valid Name ");
       
-       
-//       if(error!=null){
-//           JOptionPane.showMessageDialog(this, "Enter valid Values");
-//       }
-//       else{
-      if((profile.getName()==null)||!(profile.getName().matches("[A-Za-z]+( [A-Za-z]+)?")))
-        JOptionPane.showMessageDialog(this, "Enter Valid Name ");
-        
-      
-      else if(profile.getGeoData()==null||profile.getGeoData().equals(""))
+      else if(isValidGeoData(profile.getGeoData()))
         JOptionPane.showMessageDialog(this, "Enter Valid Geographic Data");
       
-      else if((profile.getDob()==null)||!(profile.getDob().matches("([0][1-9]|1[0-2])/([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])/([1][789]|[2][0])[0-9]{2}")))
+      else if(isValidDob(profile.getDob()))
         JOptionPane.showMessageDialog(this, "Enter Valid Date of Birth in mm/dd/yyyy");
       
-      else if((profile.getPhone()==null)||!(profile.getPhone().toString().matches("\\d{10}")))
+      else if(isValidTelephone(profile.getPhone()))
         JOptionPane.showMessageDialog(this, "Enter Valid Phone Number, A vaild number should contain 10 digits");
       
-      else if((profile.getFax()==null)||!(profile.getFax().matches("\\+[0-9]{1,3}-[0-9]{3}\\-[0-9]{7}")))
-        JOptionPane.showMessageDialog(this, "Enter Valid Fax Number ");
+      else if(isValidFax(profile.getFax()))
+        JOptionPane.showMessageDialog(this, "Enter Valid Fax Number, A valid fax is +X-XXX-XXXXXXX ");
       
-      else if((profile.getEmail()==null)||!(profile.getEmail().matches("([A-Za-z0-9._%-])+@([A-Za-z0-9.-])+\\.[A-Za-z]{2,64}")))
+      else if(isValidEmail(profile.getEmail()))
         JOptionPane.showMessageDialog(this, "Enter Valid Email Id ");
       
-      else if((profile.getSsn()==null)||!(profile.getSsn().matches("[0-9]{3}-[0-9]{2}-[0-9]{4}")))
+      else if(isValidSsn(profile.getSsn()))
         JOptionPane.showMessageDialog(this, "Enter Valid SSN Number, A valid SSN is XXX-XX-XXXX ");
       
-      else if(profile.getMedicalRecord()==null||profile.getMedicalRecord().equals("")||!(profile.getMedicalRecord().matches("[A-Za-z0-9]+")))
+      else if(isValidMedical(profile.getMedicalRecord()))
         JOptionPane.showMessageDialog(this, "Enter Valid Medical Record Number");
       
-      else if(profile.getHealthPlan()==null||profile.getHealthPlan().equals("")||!(profile.getHealthPlan().matches("[A-Za-z0-9]+")))
+      else if(isValidHealth(profile.getHealthPlan()))
         JOptionPane.showMessageDialog(this, "Enter Valid Health Plan Number");
       
-       else if((profile.getBankAccount()==null)||!(profile.getBankAccount().toString().matches("\\d{6,17}")))
+      else if(isValidBankAccount(profile.getBankAccount()))
         JOptionPane.showMessageDialog(this, "Enter Valid Bank Account Number");
       
-      else if(profile.getLicense()==null||profile.getLicense().equals("")||!(profile.getLicense().matches("[A-Za-z0-9]+")))
+      else if(isValidLicense(profile.getLicense()))
         JOptionPane.showMessageDialog(this, "Enter Valid Certificate/License Number");
       
-      else if(profile.getLicensePlate()==null||profile.getLicensePlate().equals("")||!(profile.getLicensePlate().matches("[A-Za-z0-9]+")))
+      else if(isValidLicensePlate(profile.getLicensePlate()))
         JOptionPane.showMessageDialog(this, "Enter Valid Vehicle Number");
       
-      else if(profile.getDeviceIdentifier()==null||profile.getDeviceIdentifier().equals("")||!(profile.getDeviceIdentifier().matches("[A-Za-z0-9]+")))
+      else if(isValidDevice(profile.getDeviceIdentifier()))
         JOptionPane.showMessageDialog(this, "Enter Valid Device Number");
       
-      else if(profile.getLinkedIn()==null||!(profile.getLinkedIn()).matches("https://www.linkedin.com/in/"+"[a-z0-9-]+/?"))
+      else if(isValidlinkedIn(profile.getLinkedIn()))
         JOptionPane.showMessageDialog(this, "Enter Valid LinkedIn ID");
       
-       //||!(profile.getIpAddress()).matches("((([0-9a-fA-F]){1,4})\\:){7}([0-9a-fA-F]){1,4}")
-      else if(profile.getIpAddress()==null||!(profile.getIpAddress()).matches("(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])")
-             )
+      else if(isValidipAddress(profile.getIpAddress()))
         JOptionPane.showMessageDialog(this, "Enter Valid IP Address");
       
-      else if(profile.getCode()==null||profile.getCode().equals(""))
+      else if(isValidCode(profile.getCode()))
         JOptionPane.showMessageDialog(this, "Enter Unique Code");
       
       else 
@@ -436,7 +457,7 @@ public class CreateJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    JFileChooser chooser= new JFileChooser(); 
+    JFileChooser chooser= new JFileChooser();      //code to upload photo for biometrics
     int selected= chooser.showOpenDialog(null);
     if(selected==JFileChooser.APPROVE_OPTION){
         File f=chooser.getSelectedFile();
